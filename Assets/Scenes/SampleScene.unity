@@ -329,9 +329,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cecf04ce9b92e848b249323169c37b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accele: 0.1
+  accele: 5
   decele:
-  - -0.005
+  - -0.5
   - -0.5
   - -0.05
 --- !u!136 &1220936675

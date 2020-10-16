@@ -11,9 +11,19 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("加速値")]
     private float
         accele;
+    [SerializeField, Header("左右加速値")]
+    private float
+        accele_LR;
     [SerializeField, Header("減速値"), Tooltip("0:通常 1:上り坂 2:下り坂")]
     private float[]
         decele;
+
+    [SerializeField, Header("ジャンプ力")]
+    private float
+        jumpForce;
+    private bool
+        isGround;
+
     private sbyte
         setDecele;
     private Rigidbody
@@ -28,6 +38,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
+        isGround = true;
         playerRB = GetComponent<Rigidbody>();
         SetDecele(0);
 
@@ -45,18 +56,38 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
             paramClass.SpeedFluctuation(accele);
 
+        //左右方向入力
+        if (Input.GetKey(KeyCode.RightArrow))
+            paramClass.SpeedFluctuation_LR(accele_LR/ 60f);
+        else if (Input.GetKey(KeyCode.LeftArrow))
+            paramClass.SpeedFluctuation_LR(-accele_LR/ 60f);
+        else paramClass.SpeedFluctuation_LR(0);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            paramClass.SpeedFluctuation_Jump(jumpForce);
+        else if(!isGround)
+            paramClass.SpeedFluctuation_Jump(0);
     }
 
     //プレイヤーを動かす
     private void ActionPlayerMove()
-    {
-        //前方移動
+    {       
         Vector3 movePos = Vector3.zero;
-        movePos.z += paramClass.playerSpeed;
-        playerRB.velocity = movePos;
+        if (!isGround)
+            movePos = playerRB.velocity;
+
+        //前方移動
+        movePos.z = paramClass.playerSpeed;
 
         //左右移動
+        movePos.x = paramClass.playerSpeed_LR;
+
+        //とりあえずジャンプ       
+        movePos.y = paramClass.playerJumpforce;
         
+
+        if (isGround)
+            playerRB.velocity = movePos;     
     }
 
     /// <summary>
@@ -89,5 +120,17 @@ public class PlayerMove : MonoBehaviour
     private void Decelerate()
     {
         paramClass.SpeedFluctuation(decele[setDecele]);
+    }
+
+    //接地判定
+    private void OnCollisionStay(Collision collision)
+    {
+        if(!collision.collider.CompareTag("Obstacle"))
+            isGround = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (!collision.collider.CompareTag("Obstacle"))
+            isGround = false;
     }
 }

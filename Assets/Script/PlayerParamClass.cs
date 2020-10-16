@@ -37,6 +37,10 @@ public class PlayerParamClass
     const sbyte MaxLife = 3;
     public float
         playerSpeed{ get; private set; }
+    public float
+        playerSpeed_LR{ get; private set; }
+    public float
+        playerJumpforce{ get; private set; }
 
     /// <summary>
     /// プレイヤーのライフ変動を格納
@@ -65,5 +69,17 @@ public class PlayerParamClass
         playerSpeed += val;
         if (playerSpeed < 0)
             playerSpeed = 0;
+    }
+
+    public void SpeedFluctuation_LR(float val)
+    {
+        playerSpeed_LR += val;
+        if (val == 0)
+            playerSpeed_LR = 0;
+    }
+
+    public void SpeedFluctuation_Jump(float val)
+    {
+        playerJumpforce = val;
     }
 }

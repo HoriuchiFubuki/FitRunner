@@ -73,8 +73,6 @@ public class PlayerMove : MonoBehaviour
     private void ActionPlayerMove()
     {       
         Vector3 movePos = Vector3.zero;
-        if (!isGround)
-            movePos = playerRB.velocity;
 
         //前方移動
         movePos.z = paramClass.playerSpeed;
@@ -84,10 +82,11 @@ public class PlayerMove : MonoBehaviour
 
         //とりあえずジャンプ       
         movePos.y = paramClass.playerJumpforce;
-        
 
-        if (isGround)
-            playerRB.velocity = movePos;     
+        if (!isGround)
+            movePos.y = playerRB.velocity.y; //空中時にY要素のみ変化なし（自由落下）
+        
+        playerRB.velocity = movePos;   
     }
 
     /// <summary>
@@ -125,12 +124,10 @@ public class PlayerMove : MonoBehaviour
     //接地判定
     private void OnCollisionStay(Collision collision)
     {
-        if(!collision.collider.CompareTag("Obstacle"))
-            isGround = true;
+        isGround = true;
     }
     private void OnCollisionExit(Collision collision)
     {
-        if (!collision.collider.CompareTag("Obstacle"))
-            isGround = false;
+        isGround = false;
     }
 }

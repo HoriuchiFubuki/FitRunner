@@ -6,27 +6,51 @@ public class HitChecker : MonoBehaviour
 {
     [SerializeField]
     GameObject dmgEfPrefub;
-    GameObject dmgEf;
     [SerializeField]
     Transform parentCanvas;
+
+    [SerializeField]
+    GameObject childObj;
+
+    Renderer renderer;
+    private bool hitState;
+    public float blinkInterval;
+    public float allBlinkTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        hitState = false;
+        renderer = childObj.GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (hitState)
+        {
+            hitState = false;
+            StartCoroutine("CharaBlinking");
+        }
+    }
+
+    IEnumerator CharaBlinking()
+    {
+        float time = 0f;
+        while (time > allBlinkTime)
+        {           
+            renderer.enabled = !renderer.enabled;
+            time += Time.deltaTime;
+            yield return new WaitForSeconds(blinkInterval);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Obstacle"))
+        hitState = true;
+        if (other.CompareTag("Obstacle"))
         {
-            Instantiate(dmgEfPrefub, dmgEfPrefub.transform.position, 
+            Instantiate(dmgEfPrefub, dmgEfPrefub.transform.position,
                                 Quaternion.identity, parentCanvas);
         }
     }

@@ -30,7 +30,7 @@ public class DamageEF : MonoBehaviour
         {
             f += blinkingSpeed;
             spriteAlpha.w = Mathf.Sin(Mathf.Deg2Rad * f);
-            damageSprite.color = spriteAlpha;
+            damageSprite.color = spriteAlpha;            
         }
         else
         {

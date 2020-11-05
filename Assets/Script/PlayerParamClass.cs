@@ -33,15 +33,26 @@ public class PlayerParamClass
     }
 
     public sbyte
-        playerLife { get; private set; }
+        playerLife
+    { get; private set; }
     const sbyte MaxLife = 3;
     public float
-        playerSpeed{ get; private set; }
+        playerSpeed
+    { get; private set; }
     public float
-        playerSpeed_LR{ get; private set; }
+        playerSpeed_LR
+    { get; private set; }
     public float
-        playerJumpforce{ get; private set; }
-
+        playerJumpforce
+    { get; private set; }
+    public Vector3
+        playerPos
+    { get; private set; }
+    public bool
+        isRun;
+    private bool
+        rightKneeUpNow, leftKneeUpNow;
+    const float KneeSetUp = 76;
     /// <summary>
     /// プレイヤーのライフ変動を格納
     /// </summary>
@@ -71,6 +82,10 @@ public class PlayerParamClass
             playerSpeed = 0;
     }
 
+    public void SetPos(Vector3 pos)
+    {
+        playerPos = pos;
+    }
     public void SpeedFluctuation_LR(float val)
     {
         playerSpeed_LR += val;
@@ -81,5 +96,36 @@ public class PlayerParamClass
     public void SpeedFluctuation_Jump(float val)
     {
         playerJumpforce = val;
+    }
+
+    private bool triggerRL;//false:L true:R
+    /// <summary>
+    /// 走っているか決める
+    /// </summary>
+    /// <param name="val">角度</param>
+    public void RunAngleJudge(float val)
+    {
+        if (triggerRL)
+        {
+            if (val > KneeSetUp + 1 && !rightKneeUpNow)
+            {
+                rightKneeUpNow = true;
+                isRun = true;
+            }
+            if (val <= KneeSetUp && rightKneeUpNow)
+                rightKneeUpNow = false;
+        }
+        else
+        {
+            if (val > KneeSetUp + 1 && !leftKneeUpNow)
+            {
+                leftKneeUpNow = true;
+                isRun = true;
+            }
+            if (val <= KneeSetUp && leftKneeUpNow)
+                leftKneeUpNow = false;
+
+        }
+        triggerRL = !triggerRL;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class HitChecker : MonoBehaviour
 {
@@ -45,6 +46,14 @@ public class HitChecker : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Obstacle")
+        {
+            StartCoroutine(OnceHit(0.1f, collision));
+        }      
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         hitState = true;
@@ -53,5 +62,11 @@ public class HitChecker : MonoBehaviour
             Instantiate(dmgEfPrefub, dmgEfPrefub.transform.position,
                                 Quaternion.identity, parentCanvas);
         }
+    }
+
+    private IEnumerator OnceHit(float waitTime, Collision collision)
+    {
+        yield return new WaitForSeconds(waitTime);
+        collision.collider.isTrigger = true;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,8 +29,15 @@ public class PlayerMove : MonoBehaviour
         setDecele;
     private Rigidbody
         playerRB;
+    private CapsuleCollider
+        playerCol;
+    private Vector3
+        pColCenter;
+    private float
+         pColHeight;
     private IEnumerator
-        regularlyUpdate;
+        regularlyUpdate;       
+
     private enum MyFunction
     {
         DECELERATE,
@@ -40,6 +48,10 @@ public class PlayerMove : MonoBehaviour
     {
         isGround = true;
         playerRB = GetComponent<Rigidbody>();
+        playerCol = GetComponent<CapsuleCollider>();
+        pColCenter = playerCol.center;
+        pColHeight = playerCol.height;
+
         SetDecele(0);
 
         //減速処理のコルーチン呼び出し
@@ -53,20 +65,31 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         //加速入力
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             paramClass.SpeedFluctuation(accele);
 
         //左右方向入力
-        if (Input.GetKey(KeyCode.RightArrow))
-            paramClass.SpeedFluctuation_LR(accele_LR/ 60f);
-        else if (Input.GetKey(KeyCode.LeftArrow))
-            paramClass.SpeedFluctuation_LR(-accele_LR/ 60f);
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+            paramClass.SpeedFluctuation_LR(accele_LR / 60f);
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+            paramClass.SpeedFluctuation_LR(-accele_LR / 60f);
         else paramClass.SpeedFluctuation_LR(0);
 
         if (Input.GetKeyDown(KeyCode.Space))
             paramClass.SpeedFluctuation_Jump(jumpForce);
-        else if(!isGround)
+        else if (!isGround)
             paramClass.SpeedFluctuation_Jump(0);
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {            
+            playerCol.height = pColHeight / 2f;
+            playerCol.center = new Vector3(0, pColCenter.y-(pColHeight/2 - playerCol.height/2), 0);
+        }
+        else if (playerCol.height != pColHeight)
+        {
+            playerCol.height = pColHeight;
+            playerCol.center = pColCenter;
+        }
     }
 
     //プレイヤーを動かす

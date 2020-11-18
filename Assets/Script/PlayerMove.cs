@@ -12,18 +12,19 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("加速値")]
     private float
         accele;
-    [SerializeField, Header("最高速度値")]
+    [SerializeField, Header("左右加速値")]
     private float
-    fullSpeed;
+        accele_LR;
     [SerializeField, Header("減速値"), Tooltip("0:通常 1:上り坂 2:下り坂")]
     private float[]
         decele;
+
     [SerializeField, Header("ジャンプ力")]
     private float
-    jumpForce;
-
+        jumpForce;
     private bool
-    isGround;
+        isGround;
+
     private sbyte
         setDecele;
     private Rigidbody
@@ -59,14 +60,13 @@ public class PlayerMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        //        ActionPlayerMove1();
-                  ActionPlayerMove2();
+        ActionPlayerMove();
     }
     void Update()
     {
         //加速入力
-        if ((paramClass.isRun || Input.GetKeyDown(KeyCode.UpArrow))&& paramClass.playerSpeed < fullSpeed - accele)
-        {
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        { 
             paramClass.SpeedFluctuation(accele);
             paramClass.isRun = false;
         }
@@ -77,7 +77,7 @@ public class PlayerMove : MonoBehaviour
         else paramClass.SpeedFluctuation_LR(0);
         if (Input.GetKeyDown(KeyCode.Space) || isGround && jumpForce <= paramClass.playerPos.y * 10)
             paramClass.SpeedFluctuation_Jump(jumpForce);
-        else if (!isGround)
+        else if(!isGround)
             paramClass.SpeedFluctuation_Jump(0);
 
         if (Input.GetKey(KeyCode.LeftControl))
@@ -93,42 +93,23 @@ public class PlayerMove : MonoBehaviour
     }
 
     //プレイヤーを動かす
-    private void ActionPlayerMove1()
-    {
-        //前後移動
-        Vector3 moveXY = transform.position;
-
-        //左右移動
-        moveXY.x = paramClass.playerPos.x * 10;
-
-        //縦方向移動(ジャンプ)
-        moveXY.y = paramClass.playerPos.y * 20;
-
-       // transform.position = moveXY;
-
-        Vector3 moveZ = playerRB.velocity;
-        //前方移動
-        moveZ.z = paramClass.playerSpeed;
-        playerRB.velocity = moveZ;
-    }
-
-    private void ActionPlayerMove2()//現在使用しているのはこちら
-    {
+    private void ActionPlayerMove()
+    {       
         Vector3 movePos = Vector3.zero;
 
         //前方移動
         movePos.z = paramClass.playerSpeed;
 
         //左右移動
-        movePos.x = paramClass.playerPos.x * 20;
+        movePos.x = paramClass.playerSpeed_LR;
 
-        //縦方向移動(ジャンプ)
-        //if (isGround && jumpForce <= paramClass.playerPos.y * 20)
+        //とりあえずジャンプ       
         movePos.y = paramClass.playerJumpforce;
-        //movePos.y = paramClass.playerPos.y * 20; //(プレイヤー座標の直接反映)
+
         if (!isGround)
             movePos.y = playerRB.velocity.y; //空中時にY要素のみ変化なし（自由落下）
-        playerRB.velocity = movePos;
+        
+        playerRB.velocity = movePos;   
     }
 
     /// <summary>
@@ -162,6 +143,7 @@ public class PlayerMove : MonoBehaviour
     {
         paramClass.SpeedFluctuation(decele[setDecele]);
     }
+
     //接地判定
     private void OnCollisionStay(Collision collision)
     {

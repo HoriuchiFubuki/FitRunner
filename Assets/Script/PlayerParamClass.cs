@@ -16,8 +16,6 @@ public class PlayerParamClass
     {
         playerLife = 3;
         playerSpeed = 0;
-        playerSpeed_LR = 0;
-        playerJumpforce = 0;
     }
 
     /// <summary>

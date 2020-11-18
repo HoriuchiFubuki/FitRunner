@@ -32,7 +32,6 @@ public class Anim_Con : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ///速度に応じてアニメーションを変化
         switch (paramClass.playerSpeed)
         {
             case float n when n == 0:
@@ -53,15 +52,15 @@ public class Anim_Con : MonoBehaviour
                 break;
         }
 
-        ///プレイヤーの高さが値を超えるとジャンプアニメーションを再生
         if (hight_CharaAnime <= paramClass.playerPos.y * 20 || Input.GetKeyDown(KeyCode.Space))
-        //if(paramClass.rightKneeUpNow && paramClass.leftKneeUpNow)
-        {
+          //if (paramClass.rightKneeUpNow && paramClass.leftKneeUpNow)
+            {
             Jump_S = Random.Range(0, 3);
             Anm.SetInteger("Jump_Select", Jump_S);
             Anm.SetBool("Runs", false);
             Anm.SetBool("Jump", true);
         }
+
         else if (isGround)
         {
             Anm.SetBool("Runs", true);

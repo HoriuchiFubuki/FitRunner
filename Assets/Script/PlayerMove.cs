@@ -12,6 +12,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("加速値")]
     private float
         accele;
+    [SerializeField, Header("最高速度値")]
+    private float
+    fullSpeed;
     [SerializeField, Header("左右加速値")]
     private float
         accele_LR;
@@ -65,7 +68,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         //加速入力
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if ((paramClass.isRun || Input.GetKeyDown(KeyCode.UpArrow)) && paramClass.playerSpeed < fullSpeed - accele)
         { 
             paramClass.SpeedFluctuation(accele);
             paramClass.isRun = false;

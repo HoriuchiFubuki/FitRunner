@@ -6,7 +6,7 @@ public class InRunArea : MonoBehaviour
 {
     [SerializeField, Header("エリアの高さ")]
     private float
-          Area_hight;
+          areaHight;
     private bool
         rightFootUp,
         oldrightState,
@@ -39,7 +39,7 @@ public class InRunArea : MonoBehaviour
     private void AreaPositionSet() {
         Transform mytransform = this.transform;
         Vector3 area_move = mytransform.position;
-        area_move.y = paramClass.playerPos.y - Area_hight;
+        area_move.y = paramClass.playerPos.y - areaHight;
         mytransform.position = area_move;
     }
     private void OnTriggerEnter(Collider other)

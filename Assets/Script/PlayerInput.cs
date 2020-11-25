@@ -50,6 +50,9 @@ public class PlayerInput : MonoBehaviour
     private KinectSensor sensor;
     private Vector3[] footsSetVal;
     private bool setUpFoot;
+    private Vector3 jumpJudgeVal;
+    [SerializeField, Header("ジャンプの高さ")]
+    private float jumpHight = 0.3f;
     private void Awake()
     {
         UnityEnvironment.Init();
@@ -109,16 +112,19 @@ public class PlayerInput : MonoBehaviour
             //へその位置くらいでポジションを取る
             if ((JointType)i == JointType.SpineNaval)
                 paramClass.SetPos(jointPos);
+            if((JointType)i == JointType.Head)
+                JumpJudge(jointPos);
             //膝と腰の角度で判定
             //if ((JointType)i == JointType.HipRight || (JointType)i == JointType.HipLeft)
             //    KneeAngle( jointPos, body.Joints[(JointType)i+1].Position);
             //足の高さでの判定
-            if (Input.GetMouseButton(1))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 footsSetVal = new Vector3[3];
                 footsSetVal[0] = body.Joints[JointType.FootLeft].Position;
                 footsSetVal[1] = body.Joints[JointType.FootRight].Position;
                 footsSetVal[2] = (footsSetVal[0] + footsSetVal[1]) / 2f;
+                jumpJudgeVal = body.Joints[JointType.Head].Position;
             }
             //if (((JointType)i == JointType.FootLeft || (JointType)i == JointType.FootRight) && setUpFoot)
             //    FootJudge(jointPos);
@@ -142,6 +148,13 @@ public class PlayerInput : MonoBehaviour
             {
                 jointBoneT.gameObject.SetActive(false);
             }
+        }
+    }
+    private void JumpJudge(Vector3 val)
+    {
+        if (!paramClass.isJump && val.y > jumpJudgeVal.y + jumpHight)
+        {
+            paramClass.isJump = true;
         }
     }
     private void KneeAngle(Vector3 hipPos, Vector3 kneePos)

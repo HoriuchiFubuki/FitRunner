@@ -51,9 +51,11 @@ public class PlayerParamClass
         playerPos
     { get; private set; }
     public bool
-        isRun;
+        isRun,
+        isJump;
     private bool
-        rightKneeUpNow, leftKneeUpNow;
+        rightKneeUpNow, 
+        leftKneeUpNow;
     const float KneeSetUp = 76;
     /// <summary>
     /// プレイヤーのライフ変動を格納

@@ -53,6 +53,10 @@ public class PlayerInput : MonoBehaviour
     private Vector3 jumpJudgeVal;
     [SerializeField, Header("ジャンプの高さ")]
     private float jumpHight = 0.3f;
+    [SerializeField, Header("横移動の許容値")]
+    private float moveTolerance = 0.3f;
+    private Vector3 oldPos = Vector3.zero;
+
     private void Awake()
     {
         UnityEnvironment.Init();
@@ -149,6 +153,7 @@ public class PlayerInput : MonoBehaviour
                 jointBoneT.gameObject.SetActive(false);
             }
         }
+        InputLR();
     }
     private void JumpJudge(Vector3 val)
     {
@@ -156,6 +161,18 @@ public class PlayerInput : MonoBehaviour
         {
             paramClass.isJump = true;
         }
+    }
+    private void InputLR()
+    {
+        Vector3 pos = oldPos - paramClass.playerPos;
+        if (pos.x < -moveTolerance)
+            paramClass.statusLR = PlayerParamClass.LRTrigger.LEFT;
+        else if(pos.x > moveTolerance)
+            paramClass.statusLR = PlayerParamClass.LRTrigger.RIGHT;
+        else
+            paramClass.statusLR = PlayerParamClass.LRTrigger.STAY;
+
+        oldPos = paramClass.playerPos;
     }
     private void KneeAngle(Vector3 hipPos, Vector3 kneePos)
     {

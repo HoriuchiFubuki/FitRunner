@@ -54,7 +54,7 @@ public class Anim_Con : MonoBehaviour
         }
 
         ///プレイヤーの高さが値を超えるとジャンプアニメーションを再生
-        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || Input.GetKeyDown(KeyCode.Space)) && isGround)
+        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || (Input.GetKeyDown(KeyCode.Space) || paramClass.isJump)) && isGround)
         //if(paramClass.rightKneeUpNow && paramClass.leftKneeUpNow)
         {
             Jump_S = Random.Range(0, 3);

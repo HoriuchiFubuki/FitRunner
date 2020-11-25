@@ -18,6 +18,7 @@ public class PlayerParamClass
         playerSpeed = 0;
         playerSpeed_LR = 0;
         playerJumpforce = 0;
+        statusLR = LRTrigger.STAY;
     }
 
     /// <summary>
@@ -33,7 +34,14 @@ public class PlayerParamClass
         }
         return playerParamClass;
     }
-
+    public enum LRTrigger
+    {
+        LEFT,
+        RIGHT,
+        STAY
+    }
+    public LRTrigger
+        statusLR;
     public sbyte
         playerLife
     { get; private set; }

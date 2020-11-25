@@ -73,11 +73,12 @@ public class PlayerMove : MonoBehaviour
             paramClass.SpeedFluctuation(accele);
             paramClass.isRun = false;
         }
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D) || paramClass.statusLR == PlayerParamClass.LRTrigger.RIGHT)
             paramClass.SpeedFluctuation_LR(accele_LR / 60f);
-        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) || paramClass.statusLR == PlayerParamClass.LRTrigger.LEFT)
             paramClass.SpeedFluctuation_LR(-accele_LR / 60f);
-        else paramClass.SpeedFluctuation_LR(0);
+        else
+            paramClass.SpeedFluctuation_LR(0);
         if ((Input.GetKeyDown(KeyCode.Space) || isGround)&& jumpForce <= paramClass.playerPos.y * 10)
             paramClass.SpeedFluctuation_Jump(jumpForce);
         else if(!isGround)

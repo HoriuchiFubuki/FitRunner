@@ -21,7 +21,7 @@ public class Result_Scene : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= 3)
+        if (timer >= 5)
         {
             SceneManager.LoadScene(nextScene);
         }

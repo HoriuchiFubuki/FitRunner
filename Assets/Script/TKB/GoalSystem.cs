@@ -23,7 +23,9 @@ public class GoalSystem : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-        {          
+        {
+            PlayerPrefs.SetFloat("NewScore", StateUI.stageTime);
+            PlayerPrefs.Save();
             SceneManager.LoadScene(nextScene);
         }
     }

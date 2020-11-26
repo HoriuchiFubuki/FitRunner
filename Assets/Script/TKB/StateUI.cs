@@ -7,7 +7,7 @@ public class StateUI : MonoBehaviour
 {
     TimeCounter time;
     [SerializeField] Text TimeText;
-    float stageTime;
+    public static float stageTime;
 
     // Start is called before the first frame update
     void Start()

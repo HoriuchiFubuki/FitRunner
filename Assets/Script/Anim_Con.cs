@@ -92,11 +92,11 @@ public class Anim_Con : MonoBehaviour
         ///プレイヤーが空中滞在時は落下アニメーションを再生
         if (!isGround)
         {
-            Anm.SetBool("fall", true);
+ //           Anm.SetBool("fall", true);
         }
         else
         {
-            Anm.SetBool("fall", false);
+//            Anm.SetBool("fall", false);
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GoalSystem : MonoBehaviour
+public class Title : MonoBehaviour
 {
     [SerializeField]
     string nextScene = "NewScene";
@@ -17,15 +17,8 @@ public class GoalSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+    if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlayerPrefs.SetFloat("NewScore", StateUI.stageTime);
-            PlayerPrefs.Save();
             SceneManager.LoadScene(nextScene);
         }
     }

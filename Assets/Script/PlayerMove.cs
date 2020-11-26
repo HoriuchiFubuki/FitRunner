@@ -79,7 +79,7 @@ public class PlayerMove : MonoBehaviour
             paramClass.SpeedFluctuation_LR(-accele_LR / 60f);
         else
             paramClass.SpeedFluctuation_LR(0);
-        if ((Input.GetKeyDown(KeyCode.Space) || isGround)&& jumpForce <= paramClass.playerPos.y * 10)
+        if (Input.GetKeyDown(KeyCode.Space) || isGround && paramClass.isJump)
             paramClass.SpeedFluctuation_Jump(jumpForce);
         else if(!isGround)
             paramClass.SpeedFluctuation_Jump(0);

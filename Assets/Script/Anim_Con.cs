@@ -69,6 +69,7 @@ public class Anim_Con : MonoBehaviour
             Anm.SetBool("Runs", true);
             Anm.SetBool("Jump", false);
             isJump = false;
+            paramClass.isJump = false;
         }
 
         ///プレイヤーがしゃがむとスライディング/ローリングアニメーションを再生

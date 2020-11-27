@@ -12,6 +12,7 @@ public class Countdown : MonoBehaviour
 
     public GameObject timer;
     public GameObject Players;
+    public GameObject Speed_M;
 
     private float count;
 
@@ -39,6 +40,7 @@ public class Countdown : MonoBehaviour
                 break;
             case float n when n > 4:
                 timer.gameObject.SetActive(true);
+                Speed_M.gameObject.SetActive(true);
                 Players.GetComponent <PlayerMove> ().enabled = true;
                 this.gameObject.SetActive(false);
                 break;

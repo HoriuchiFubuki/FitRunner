@@ -6,30 +6,45 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     [SerializeField] Text YouScoreText;
-    [SerializeField] Text FirstTime;
+
+    [SerializeField, Header("表示用テキスト")]
+    Text[] Rankingtext = new Text[5];
+
     [SerializeField] Text Resetcall;
+
+    private float[] RankScore = new float[5];
+
+    private bool Change;
 
     // Start is called before the first frame update
     void Start()
     {
+        Change = true;
         float YourScore = PlayerPrefs.GetFloat("NewScore");
         YouScoreText.text = YourScore.ToString("f2");
-        float F_Score = PlayerPrefs.GetFloat("FirstScore");
-        
-        switch(YourScore)
-        {
-            case float n when n <= F_Score || F_Score == 0:
-            FirstTime.text = "1st  " + YourScore.ToString("f2");
-            PlayerPrefs.SetFloat("FirstScore", YourScore);
-                break;
 
-            case float n when n > F_Score:
-            FirstTime.text = "1st  " + F_Score.ToString("f2");
-                break;
+        for (int i = 0; i < 5; i++)
+        {
+            RankScore[i] = PlayerPrefs.GetFloat("Score_" + i, 0);
         }
         
+        for(int i = 0; i < 5; i++)
+        {
+            if (Change && (YourScore <= RankScore[i] || RankScore[i] == 0))
+            {
+                for (int j = 4; j > i; j--)
+                {
+                    RankScore[j] = RankScore[j - 1];
+                }
 
-        PlayerPrefs.Save();
+                RankScore[i] = YourScore;
+                Change = false;
+            }
+            Rankingtext[i].text = (i + 1) + ". " + RankScore[i].ToString("f2");
+        }
+
+        RankSave();
+
     }
 
     // Update is called once per frame
@@ -38,8 +53,22 @@ public class Score : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             Resetcall.text = "Ranking Reset";
-            PlayerPrefs.SetFloat("FirstScore", 0);
+            for (int i = 0; i < 5; i++)
+            {
+                PlayerPrefs.SetFloat("Score_" + i, 0);
+            }
             PlayerPrefs.Save();
         }
     }
+
+    //ランキングセーブ
+    void RankSave()
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            PlayerPrefs.SetFloat("Score_" + i, RankScore[i]);
+        }
+        PlayerPrefs.Save();
+    }
+
 }

@@ -25,8 +25,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("ジャンプ力")]
     private float
         jumpForce;
-    private bool
-        isGround;
 
     private sbyte
         setDecele;
@@ -49,7 +47,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        isGround = true;
+        paramClass.isGround = true;
         playerRB = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
         pColCenter = playerCol.center;
@@ -79,9 +77,9 @@ public class PlayerMove : MonoBehaviour
             paramClass.SpeedFluctuation_LR(-accele_LR / 60f);
         else
             paramClass.SpeedFluctuation_LR(0);
-        if (Input.GetKeyDown(KeyCode.Space) || isGround && paramClass.isJump)
+        if (Input.GetKeyDown(KeyCode.Space) || paramClass.isGround && paramClass.isJump)
             paramClass.SpeedFluctuation_Jump(jumpForce);
-        else if(!isGround)
+        else if(!paramClass.isGround)
             paramClass.SpeedFluctuation_Jump(0);
 
         if (Input.GetKey(KeyCode.LeftControl))
@@ -110,7 +108,7 @@ public class PlayerMove : MonoBehaviour
         //とりあえずジャンプ       
         movePos.y = paramClass.playerJumpforce;
 
-        if (!isGround)
+        if (!paramClass.isGround)
             movePos.y = playerRB.velocity.y; //空中時にY要素のみ変化なし（自由落下）
         
         playerRB.velocity = movePos;   
@@ -151,10 +149,10 @@ public class PlayerMove : MonoBehaviour
     //接地判定
     private void OnCollisionStay(Collision collision)
     {
-        isGround = true;
+        paramClass.isGround = true;
     }
     private void OnCollisionExit(Collision collision)
     {
-        isGround = false;
+        paramClass.isGround = false;
     }
 }

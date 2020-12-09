@@ -11,7 +11,6 @@ public class Anim_Con : MonoBehaviour
     Animator Anm;
     private int Run;
     private int Jump_S;
-    private bool isGround;
     private bool isJump;
     [SerializeField, Header("アニメーション変更速度"), Tooltip("0:idle 1:walk 2:jog 3:dash 4:boost")]
     private float[]
@@ -26,7 +25,6 @@ public class Anim_Con : MonoBehaviour
         this.Anm = GetComponent<Animator>();
         this.Run = 0;
         this.Jump_S = 0;
-        isGround = true;
         isJump = false;
     }
 
@@ -54,7 +52,7 @@ public class Anim_Con : MonoBehaviour
         }
 
         ///プレイヤーの高さが値を超えるとジャンプアニメーションを再生
-        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || (Input.GetKeyDown(KeyCode.Space) || paramClass.isJump)) && isGround)
+        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || (Input.GetKeyDown(KeyCode.Space) || paramClass.isJump)) && paramClass.isGround)
         //if(paramClass.rightKneeUpNow && paramClass.leftKneeUpNow)
         {
             Jump_S = Random.Range(0, 3);
@@ -64,7 +62,7 @@ public class Anim_Con : MonoBehaviour
             isJump = true;
 
         }
-        else if (isGround || isJump)
+        else if (paramClass.isGround || isJump)
         {
             Anm.SetBool("Runs", true);
             Anm.SetBool("Jump", false);
@@ -73,11 +71,11 @@ public class Anim_Con : MonoBehaviour
         }
 
         ///プレイヤーがしゃがむとスライディング/ローリングアニメーションを再生
-        if (Input.GetKey(KeyCode.LeftControl) && isGround && paramClass.playerSpeed != 0)
+        if (Input.GetKey(KeyCode.LeftControl) && paramClass.isGround && paramClass.playerSpeed != 0)
         {
             Anm.SetBool("Sliding",true);
         }
-        else if (Input.GetKey(KeyCode.LeftControl) && isGround && paramClass.playerSpeed == 0)
+        else if (Input.GetKey(KeyCode.LeftControl) && paramClass.isGround && paramClass.playerSpeed == 0)
         {
             Anm.SetBool("Roll",true);
         }
@@ -90,26 +88,26 @@ public class Anim_Con : MonoBehaviour
 
 
         ///プレイヤーが空中滞在時は落下アニメーションを再生
-        if (!isGround)
+        /*if (!isGround)
         {
  //           Anm.SetBool("fall", true);
         }
         else
         {
 //            Anm.SetBool("fall", false);
-        }
+        }*/
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (!collision.collider.CompareTag("Obstacle"))
-            isGround = true;
+            paramClass.isGround = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (!collision.collider.CompareTag("Obstacle"))
-            isGround = false;
+            paramClass.isGround = false;
     }
 
 }

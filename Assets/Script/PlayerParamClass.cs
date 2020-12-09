@@ -60,7 +60,8 @@ public class PlayerParamClass
     { get; private set; }
     public bool
         isRun,
-        isJump;
+        isJump,
+        isGround;
     private bool
         rightKneeUpNow, 
         leftKneeUpNow;

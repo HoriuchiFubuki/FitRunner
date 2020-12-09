@@ -12,6 +12,9 @@ public class Score : MonoBehaviour
 
     [SerializeField] Text Resetcall;
 
+    [SerializeField]
+    GameObject[] Ranking_Bar = new GameObject[5];
+
     private float[] RankScore = new float[5];
 
     private bool Change;
@@ -38,6 +41,7 @@ public class Score : MonoBehaviour
                 }
 
                 RankScore[i] = YourScore;
+                Ranking_Bar[i].gameObject.SetActive(true);
                 Change = false;
             }
             Rankingtext[i].text = (i + 1) + ". " + RankScore[i].ToString("f2");

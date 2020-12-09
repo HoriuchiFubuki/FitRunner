@@ -14,7 +14,7 @@ public class GoalSystem : MonoBehaviour
 
     public GameObject ClearLogo;
     public GameObject Players;
-
+    public GameObject Time;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,6 +32,7 @@ public class GoalSystem : MonoBehaviour
             PlayerPrefs.Save();
 
             Players.GetComponent<PlayerMove>().enabled = false;
+            Time.gameObject.SetActive(false);
         }
     }
 

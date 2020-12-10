@@ -67,6 +67,7 @@ public class PlayerInput : MonoBehaviour
     {
         sensor = KinectSensor.GetDefault();
         sensor?.Open();
+
     }
 
     private void FixedUpdate()
@@ -126,7 +127,7 @@ public class PlayerInput : MonoBehaviour
             
             //高さの判定
             //初期セットアップ
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) || footsSetVal == null)
             {
                 footsSetVal = new Vector3[3];
                 footsSetVal[0] = body.Joints[JointType.FootLeft].Position;

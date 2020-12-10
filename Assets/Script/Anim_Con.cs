@@ -11,6 +11,7 @@ public class Anim_Con : MonoBehaviour
     Animator Anm;
     private int Run;
     private int Jump_S;
+    private bool isGround;
     private bool isJump;
     [SerializeField, Header("アニメーション変更速度"), Tooltip("0:idle 1:walk 2:jog 3:dash 4:boost")]
     private float[]
@@ -25,6 +26,7 @@ public class Anim_Con : MonoBehaviour
         this.Anm = GetComponent<Animator>();
         this.Run = 0;
         this.Jump_S = 0;
+        isGround = true;
         isJump = false;
     }
 
@@ -34,25 +36,25 @@ public class Anim_Con : MonoBehaviour
         ///速度に応じて移動アニメーションを変化
         switch (paramClass.playerSpeed)
         {
-            case float n when n == 0:
+            case float n when n == 0: //idle
                 Run = 0;
                 break;
-            case float n when 0 <= n && n < shift_CharaAnime[0]:
+            case float n when 0 <= n && n < shift_CharaAnime[0]://walk
                 Run = 1;
                 break;
-            case float n when shift_CharaAnime[0] <= n && n < shift_CharaAnime[1]:
+            case float n when shift_CharaAnime[0] <= n && n < shift_CharaAnime[1]://jog
                 Run = 2;
                 break;
-            case float n when shift_CharaAnime[1] <= n && n < shift_CharaAnime[2]:
+            case float n when shift_CharaAnime[1] <= n && n < shift_CharaAnime[2]://dash
                 Run = 3;
                 break;
-            default:
+            default://boost
                 Run = 4;
                 break;
         }
 
         ///プレイヤーの高さが値を超えるとジャンプアニメーションを再生
-        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || (Input.GetKeyDown(KeyCode.Space) || paramClass.isJump)) && paramClass.isGround)
+        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || (Input.GetKeyDown(KeyCode.Space) || paramClass.isJump)) && isGround)
         //if(paramClass.rightKneeUpNow && paramClass.leftKneeUpNow)
         {
             Jump_S = Random.Range(0, 3);
@@ -62,7 +64,7 @@ public class Anim_Con : MonoBehaviour
             isJump = true;
 
         }
-        else if (paramClass.isGround || isJump)
+        else if (isGround || isJump)
         {
             Anm.SetBool("Runs", true);
             Anm.SetBool("Jump", false);
@@ -71,13 +73,13 @@ public class Anim_Con : MonoBehaviour
         }
 
         ///プレイヤーがしゃがむとスライディング/ローリングアニメーションを再生
-        if (Input.GetKey(KeyCode.LeftControl) && paramClass.isGround && paramClass.playerSpeed != 0)
+        if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && paramClass.playerSpeed != 0)       //RightControlを追加(11/27)
         {
-            Anm.SetBool("Sliding",true);
+            Anm.SetBool("Sliding", true);
         }
-        else if (Input.GetKey(KeyCode.LeftControl) && paramClass.isGround && paramClass.playerSpeed == 0)
+        else if ((Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)) && paramClass.playerSpeed == 0)       //RightControlを追加(11/27)
         {
-            Anm.SetBool("Roll",true);
+            Anm.SetBool("Roll", true);
         }
         else
         {
@@ -86,28 +88,45 @@ public class Anim_Con : MonoBehaviour
         }
         Anm.SetInteger("RunSpeed", Run);
 
-
-        ///プレイヤーが空中滞在時は落下アニメーションを再生
-        /*if (!isGround)
+        if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) || paramClass.statusLR == PlayerParamClass.LRTrigger.RIGHT)
         {
- //           Anm.SetBool("fall", true);
+            Anm.SetBool("Right", true);
+            Anm.SetBool("Left", false);
+        }
+       else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) || paramClass.statusLR == PlayerParamClass.LRTrigger.LEFT)
+        {
+            Anm.SetBool("Right",false);
+            Anm.SetBool("Left", true);
         }
         else
         {
-//            Anm.SetBool("fall", false);
-        }*/
+            Anm.SetBool("Right", false);
+            Anm.SetBool("Left", false);
+        }
+            
+
+
+        ///プレイヤーが空中滞在時は落下アニメーションを再生
+        if (!isGround)
+        {
+  //         Anm.SetBool("fall", true);
+        }
+        else
+        {
+  //          Anm.SetBool("fall", false);
+        }
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (!collision.collider.CompareTag("Obstacle"))
-            paramClass.isGround = true;
+            isGround = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (!collision.collider.CompareTag("Obstacle"))
-            paramClass.isGround = false;
+            isGround = false;
     }
 
 }

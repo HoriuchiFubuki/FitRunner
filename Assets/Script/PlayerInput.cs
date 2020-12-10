@@ -166,9 +166,9 @@ public class PlayerInput : MonoBehaviour
     {
         Vector3 pos = oldPos - paramClass.playerPos;
         if (pos.x < -moveTolerance)
-            paramClass.statusLR = PlayerParamClass.LRTrigger.LEFT;
+            paramClass.statusLR = PlayerParamClass.LRTrigger.RIGHT;      //LEFTとRIGHT入れ替えました(11/27)
         else if(pos.x > moveTolerance)
-            paramClass.statusLR = PlayerParamClass.LRTrigger.RIGHT;
+            paramClass.statusLR = PlayerParamClass.LRTrigger.LEFT;      //LEFTとRIGHT入れ替えました(11/27)
         else
             paramClass.statusLR = PlayerParamClass.LRTrigger.STAY;
 

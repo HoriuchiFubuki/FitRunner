@@ -25,6 +25,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("ジャンプ力")]
     private float
         jumpForce;
+    private bool
+        isGround;
 
     private sbyte
         setDecele;
@@ -47,7 +49,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        paramClass.isGround = true;
+        isGround = true;
         playerRB = GetComponent<Rigidbody>();
         playerCol = GetComponent<CapsuleCollider>();
         pColCenter = playerCol.center;
@@ -77,12 +79,12 @@ public class PlayerMove : MonoBehaviour
             paramClass.SpeedFluctuation_LR(-accele_LR / 60f);
         else
             paramClass.SpeedFluctuation_LR(0);
-        if (Input.GetKeyDown(KeyCode.Space) || paramClass.isGround && paramClass.isJump)
+        if (Input.GetKeyDown(KeyCode.Space) || isGround && paramClass.isJump)
             paramClass.SpeedFluctuation_Jump(jumpForce);
-        else if(!paramClass.isGround)
+        else if(!isGround)
             paramClass.SpeedFluctuation_Jump(0);
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))    //RightControlを追加(11/27)
         {            
             playerCol.height = pColHeight / 2f;
             playerCol.center = new Vector3(0, pColCenter.y-(pColHeight/2 - playerCol.height/2), 0);
@@ -108,7 +110,7 @@ public class PlayerMove : MonoBehaviour
         //とりあえずジャンプ       
         movePos.y = paramClass.playerJumpforce;
 
-        if (!paramClass.isGround)
+        if (!isGround)
             movePos.y = playerRB.velocity.y; //空中時にY要素のみ変化なし（自由落下）
         
         playerRB.velocity = movePos;   
@@ -149,10 +151,10 @@ public class PlayerMove : MonoBehaviour
     //接地判定
     private void OnCollisionStay(Collision collision)
     {
-        paramClass.isGround = true;
+        isGround = true;
     }
     private void OnCollisionExit(Collision collision)
     {
-        paramClass.isGround = false;
+        isGround = false;
     }
 }

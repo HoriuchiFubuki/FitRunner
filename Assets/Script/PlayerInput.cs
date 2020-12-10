@@ -50,9 +50,11 @@ public class PlayerInput : MonoBehaviour
     private KinectSensor sensor;
     private Vector3[] footsSetVal;
     private bool setUpFoot;
-    private Vector3 jumpJudgeVal;
-    [SerializeField, Header("ジャンプの高さ")]
+    private Vector3 neckJudgeVal;
+    [SerializeField, Header("ジャンプ基準の高さ"), Tooltip("首の位置がどれだけ上昇したらジャンプするかの値")]
     private float jumpHight = 0.3f;
+    [SerializeField, Header("スライディング基準の高さ"), Tooltip("首の位置がどれだけ下降したらスライディングするかの値")]
+    private float slidingHight = 0.3f;
     [SerializeField, Header("横移動の許容値")]
     private float moveTolerance = 0.3f;
     private Vector3 oldPos = Vector3.zero;
@@ -116,19 +118,21 @@ public class PlayerInput : MonoBehaviour
             //へその位置くらいでポジションを取る
             if ((JointType)i == JointType.SpineNaval)
                 paramClass.SetPos(jointPos);
-            if((JointType)i == JointType.Head)
-                JumpJudge(jointPos);
+            if((JointType)i == JointType.Neck)
+                NeckJudge(jointPos);
             //膝と腰の角度で判定
             //if ((JointType)i == JointType.HipRight || (JointType)i == JointType.HipLeft)
             //    KneeAngle( jointPos, body.Joints[(JointType)i+1].Position);
-            //足の高さでの判定
+            
+            //高さの判定
+            //初期セットアップ
             if (Input.GetKeyDown(KeyCode.R))
             {
                 footsSetVal = new Vector3[3];
                 footsSetVal[0] = body.Joints[JointType.FootLeft].Position;
                 footsSetVal[1] = body.Joints[JointType.FootRight].Position;
                 footsSetVal[2] = (footsSetVal[0] + footsSetVal[1]) / 2f;
-                jumpJudgeVal = body.Joints[JointType.Head].Position;
+                neckJudgeVal = body.Joints[JointType.Neck].Position;
             }
             //if (((JointType)i == JointType.FootLeft || (JointType)i == JointType.FootRight) && setUpFoot)
             //    FootJudge(jointPos);
@@ -155,12 +159,16 @@ public class PlayerInput : MonoBehaviour
         }
         InputLR();
     }
-    private void JumpJudge(Vector3 val)
+    private void NeckJudge(Vector3 val)
     {
-        if (!paramClass.isJump && val.y > jumpJudgeVal.y + jumpHight)
-        {
+        if (!paramClass.isJump && val.y > neckJudgeVal.y + jumpHight)
             paramClass.isJump = true;
-        }
+
+        if (!paramClass.isSliding && val.y < neckJudgeVal.y - slidingHight)
+            paramClass.isSliding = true;
+            //Debug.Log("slidingNoW!!");
+        else if (val.y > neckJudgeVal.y - slidingHight)
+            paramClass.isSliding = false;
     }
     private void InputLR()
     {

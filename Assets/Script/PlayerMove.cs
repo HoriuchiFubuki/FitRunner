@@ -84,7 +84,7 @@ public class PlayerMove : MonoBehaviour
         else if(!isGround)
             paramClass.SpeedFluctuation_Jump(0);
 
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))    //RightControlを追加(11/27)
+        if (Input.GetKey(KeyCode.LeftControl) || paramClass.isSliding)
         {            
             playerCol.height = pColHeight / 2f;
             playerCol.center = new Vector3(0, pColCenter.y-(pColHeight/2 - playerCol.height/2), 0);
@@ -149,12 +149,12 @@ public class PlayerMove : MonoBehaviour
     }
 
     //接地判定
-    private void OnCollisionStay(Collision collision)
+    /*private void OnCollisionStay(Collision collision)
     {
         isGround = true;
     }
     private void OnCollisionExit(Collision collision)
     {
-        isGround = false;
-    }
+        paramClass.isGround = false;
+    }*/
 }

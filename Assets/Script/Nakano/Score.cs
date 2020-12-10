@@ -19,6 +19,8 @@ public class Score : MonoBehaviour
 
     private bool Change;
 
+    public GameObject New;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,7 @@ public class Score : MonoBehaviour
 
                 RankScore[i] = YourScore;
                 Ranking_Bar[i].gameObject.SetActive(true);
+                New.gameObject.SetActive(true);
                 Change = false;
             }
             Rankingtext[i].text = (i + 1) + ". " + RankScore[i].ToString("f2");

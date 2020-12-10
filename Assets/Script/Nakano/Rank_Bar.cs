@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Rank_Bar : MonoBehaviour
 {
-    //public
-    public float speed = 1.0f;
+    [SerializeField]
+    float speed = 1.0f;
 
     //private
     private Image image;

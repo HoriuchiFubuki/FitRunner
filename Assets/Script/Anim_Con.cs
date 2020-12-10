@@ -11,8 +11,6 @@ public class Anim_Con : MonoBehaviour
     Animator Anm;
     private int Run;
     private int Jump_S;
-    private bool isGround;
-    private bool isJump;
     [SerializeField, Header("アニメーション変更速度"), Tooltip("0:idle 1:walk 2:jog 3:dash 4:boost")]
     private float[]
         shift_CharaAnime;
@@ -26,8 +24,6 @@ public class Anim_Con : MonoBehaviour
         this.Anm = GetComponent<Animator>();
         this.Run = 0;
         this.Jump_S = 0;
-        isGround = true;
-        isJump = false;
     }
 
     // Update is called once per frame
@@ -54,27 +50,28 @@ public class Anim_Con : MonoBehaviour
         }
 
         ///プレイヤーの高さが値を超えるとジャンプアニメーションを再生
-        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || (Input.GetKeyDown(KeyCode.Space) || paramClass.isJump)) && isGround)
+        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 || (Input.GetKeyDown(KeyCode.Space) || paramClass.isJump)) && paramClass.isGround)
         //if(paramClass.rightKneeUpNow && paramClass.leftKneeUpNow)
         {
             Jump_S = Random.Range(0, 3);
             Anm.SetInteger("Jump_Select", Jump_S);
             Anm.SetBool("Runs", false);
             Anm.SetBool("Jump", true);
-            isJump = true;
+            paramClass.isJump = true;
 
         }
-        else if (isGround || isJump)
+        else if (paramClass.isGround || paramClass.isJump)
         {
             Anm.SetBool("Runs", true);
             Anm.SetBool("Jump", false);
-            isJump = false;
+            paramClass.isJump = false;
             paramClass.isJump = false;
         }
 
         ///プレイヤーがしゃがむとスライディング/ローリングアニメーションを再生
         if ((Input.GetKey(KeyCode.LeftControl) || paramClass.isSliding) && paramClass.isGround)
         {
+            Debug.Log("slidinganime");
             if (paramClass.playerSpeed != 0)
                 Anm.SetBool("Sliding",true);
             else
@@ -92,7 +89,7 @@ public class Anim_Con : MonoBehaviour
             Anm.SetBool("Right", true);
             Anm.SetBool("Left", false);
         }
-       else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) || paramClass.statusLR == PlayerParamClass.LRTrigger.LEFT)
+        else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) || paramClass.statusLR == PlayerParamClass.LRTrigger.LEFT)
         {
             Anm.SetBool("Right",false);
             Anm.SetBool("Left", true);
@@ -103,29 +100,18 @@ public class Anim_Con : MonoBehaviour
             Anm.SetBool("Left", false);
         }
             
-
-
-        ///プレイヤーが空中滞在時は落下アニメーションを再生
-        if (!isGround)
-        {
-  //         Anm.SetBool("fall", true);
-        }
-        else
-        {
-  //          Anm.SetBool("fall", false);
-        }
     }
 
     private void OnCollisionStay(Collision collision)
     {
         if (!collision.collider.CompareTag("Obstacle"))
-            isGround = true;
+            paramClass.isGround = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (!collision.collider.CompareTag("Obstacle"))
-            isGround = false;
+            paramClass.isGround = false;
     }
 
 }

@@ -132,7 +132,7 @@ public class PlayerInput : MonoBehaviour
                 footsSetVal[0] = body.Joints[JointType.FootLeft].Position;
                 footsSetVal[1] = body.Joints[JointType.FootRight].Position;
                 footsSetVal[2] = (footsSetVal[0] + footsSetVal[1]) / 2f;
-                neckJudgeVal = body.Joints[JointType.Neck].Position;
+                neckJudgeVal = body.Joints[JointType.Neck].Position * -1f;
             }
             //if (((JointType)i == JointType.FootLeft || (JointType)i == JointType.FootRight) && setUpFoot)
             //    FootJudge(jointPos);
@@ -161,6 +161,7 @@ public class PlayerInput : MonoBehaviour
     }
     private void NeckJudge(Vector3 val)
     {
+        Debug.Log(neckJudgeVal.y);
         if (!paramClass.isJump && val.y > neckJudgeVal.y + jumpHight)
             paramClass.isJump = true;
 

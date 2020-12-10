@@ -71,13 +71,12 @@ public class Anim_Con : MonoBehaviour
         }
 
         ///プレイヤーがしゃがむとスライディング/ローリングアニメーションを再生
-        if (Input.GetKey(KeyCode.LeftControl) && paramClass.isGround && paramClass.playerSpeed != 0)
+        if ((Input.GetKey(KeyCode.LeftControl) || paramClass.isSliding) && paramClass.isGround)
         {
-            Anm.SetBool("Sliding",true);
-        }
-        else if (Input.GetKey(KeyCode.LeftControl) && paramClass.isGround && paramClass.playerSpeed == 0)
-        {
-            Anm.SetBool("Roll",true);
+            if (paramClass.playerSpeed != 0)
+                Anm.SetBool("Sliding",true);
+            else
+                Anm.SetBool("Roll", true);
         }
         else
         {

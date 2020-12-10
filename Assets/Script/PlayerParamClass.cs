@@ -61,7 +61,8 @@ public class PlayerParamClass
     public bool
         isRun,
         isJump,
-        isGround;
+        isGround,
+        isSliding;
     private bool
         rightKneeUpNow, 
         leftKneeUpNow;

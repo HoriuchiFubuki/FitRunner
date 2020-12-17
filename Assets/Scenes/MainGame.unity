@@ -844,6 +844,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998431186052848888, guid: 777fd1ab645fd0349987f7a6af18efe9,
         type: 3}
+      propertyPath: decele.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998431186052848888, guid: 777fd1ab645fd0349987f7a6af18efe9,
+        type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -851,6 +856,16 @@ PrefabInstance:
         type: 3}
       propertyPath: jumpForce
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998431186052848888, guid: 777fd1ab645fd0349987f7a6af18efe9,
+        type: 3}
+      propertyPath: decele.Array.data[1]
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5998431186052848888, guid: 777fd1ab645fd0349987f7a6af18efe9,
+        type: 3}
+      propertyPath: fullSpeed
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6083673079460097670, guid: 777fd1ab645fd0349987f7a6af18efe9,
         type: 3}

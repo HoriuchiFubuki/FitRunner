@@ -83,10 +83,9 @@ public class PlayerMove : MonoBehaviour
             SetDecele(1);
         }
         else if(!paramClass.isGround)
-        {
             paramClass.SpeedFluctuation_Jump(0);
+        if(!paramClass.isJump)
             SetDecele(0);
-        }
         if (Input.GetKey(KeyCode.LeftControl) || paramClass.isSliding)
         {            
             playerCol.height = pColHeight / 2f;

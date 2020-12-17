@@ -19,6 +19,7 @@ public class PlayerParamClass
         playerSpeed_LR = 0;
         playerJumpforce = 0;
         statusLR = LRTrigger.STAY;
+        maxSpeed = 0;
     }
 
     /// <summary>
@@ -66,7 +67,10 @@ public class PlayerParamClass
     private bool
         rightKneeUpNow, 
         leftKneeUpNow;
-    const float KneeSetUp = 76;
+    public float
+        maxSpeed;
+    const float
+        KneeSetUp = 76;
     /// <summary>
     /// プレイヤーのライフ変動を格納
     /// </summary>
@@ -91,7 +95,8 @@ public class PlayerParamClass
     /// <param name="val">変動する値</param>
     public void SpeedFluctuation(float val)
     {
-        playerSpeed += val;
+        if(maxSpeed > val)
+            playerSpeed += val;
         if (playerSpeed < 0)
             playerSpeed = 0;
     }

@@ -53,6 +53,7 @@ public class PlayerMove : MonoBehaviour
         pColHeight = playerCol.height;
 
         SetDecele(0);
+        paramClass.maxSpeed = fullSpeed;
 
         //減速処理のコルーチン呼び出し
         regularlyUpdate = RegularlyUpdate(MyFunction.DECELERATE);
@@ -65,7 +66,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         //加速入力
-        if ((paramClass.isRun || Input.GetKeyDown(KeyCode.UpArrow)) && paramClass.playerSpeed < fullSpeed - accele)
+        if (paramClass.isRun || Input.GetKeyDown(KeyCode.UpArrow))
         { 
             paramClass.SpeedFluctuation(accele);
             paramClass.isRun = false;
@@ -77,19 +78,26 @@ public class PlayerMove : MonoBehaviour
         else
             paramClass.SpeedFluctuation_LR(0);
         if ((Input.GetKeyDown(KeyCode.Space) || paramClass.isJump) && paramClass.isGround)
+        {
             paramClass.SpeedFluctuation_Jump(jumpForce);
+            SetDecele(1);
+        }
         else if(!paramClass.isGround)
+        {
             paramClass.SpeedFluctuation_Jump(0);
-
+            SetDecele(0);
+        }
         if (Input.GetKey(KeyCode.LeftControl) || paramClass.isSliding)
         {            
             playerCol.height = pColHeight / 2f;
             playerCol.center = new Vector3(0, pColCenter.y-(pColHeight/2 - playerCol.height/2), 0);
+            SetDecele(1);
         }
         else if (playerCol.height != pColHeight)
         {
             playerCol.height = pColHeight;
             playerCol.center = pColCenter;
+            SetDecele(0);
         }
     }
 
@@ -144,14 +152,4 @@ public class PlayerMove : MonoBehaviour
     {
         paramClass.SpeedFluctuation(decele[setDecele]);
     }
-
-    //接地判定
-    /*private void OnCollisionStay(Collision collision)
-    {
-        isGround = true;
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        paramClass.isGround = false;
-    }*/
 }

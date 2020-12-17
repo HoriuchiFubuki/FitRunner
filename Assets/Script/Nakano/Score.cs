@@ -47,7 +47,7 @@ public class Score : MonoBehaviour
                 New.gameObject.SetActive(true);
                 Change = false;
             }
-            Rankingtext[i].text = (i + 1) + ". " + RankScore[i].ToString("f2");
+            Rankingtext[i].text = RankScore[i].ToString("f2");
         }
 
         RankSave();

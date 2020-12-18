@@ -67,6 +67,7 @@ public class HitChecker : MonoBehaviour
     private IEnumerator OnceHit(float waitTime, Collision collision)
     {
         yield return new WaitForSeconds(waitTime);
-        collision.collider.isTrigger = true;
+        if(collision.collider.CompareTag("Obstacle"))
+            collision.collider.isTrigger = true;
     }
 }

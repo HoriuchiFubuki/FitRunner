@@ -107,6 +107,7 @@ public class PlayerMove : MonoBehaviour
 
         //前方移動
         movePos.z = paramClass.playerSpeed;
+        Debug.Log(paramClass.playerSpeed);
 
         //左右移動
         movePos.x = paramClass.playerSpeed_LR;

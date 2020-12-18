@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyT: {fileID: 2841412041884085770}
   jumpHight: 0.3
+  slidingHight: 0.3
   moveTolerance: 0.3
 --- !u!95 &86328295323810434
 Animator:

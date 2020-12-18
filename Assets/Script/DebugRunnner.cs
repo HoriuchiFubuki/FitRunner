@@ -11,9 +11,10 @@ public class DebugRunnner : MonoBehaviour
     [SerializeField]
     Vector3 ContinuePos;
     public bool AutoRun;
-    [Range(0.0f, 40.0f)]
+
+    [Range(0.0f, 25.0f)]
     public float
-        AutoRunSpeed = 40.0f;
+        AutoRunSpeed = 10.0f;
 
     // Start is called before the first frame update
     void Start()

@@ -95,8 +95,9 @@ public class PlayerParamClass
     /// <param name="val">変動する値</param>
     public void SpeedFluctuation(float val)
     {
-        if(maxSpeed > playerSpeed)
             playerSpeed += val;
+        if (playerSpeed > maxSpeed)
+            playerSpeed = maxSpeed;
         if (playerSpeed < 0)
             playerSpeed = 0;
     }

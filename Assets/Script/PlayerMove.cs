@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("左右加速値")]
     private float
         accele_LR;
-    [SerializeField, Header("減速値"), Tooltip("0:通常 1:上り坂 2:下り坂")]
+    [SerializeField, Header("減速値"), Tooltip("0:通常 1:ジャンプ＆スライディング時")]
     private float[]
         decele;
 
@@ -66,7 +66,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         //加速入力
-        if (paramClass.isRun || Input.GetKeyDown(KeyCode.UpArrow))
+        if ((paramClass.isRun || Input.GetKeyDown(KeyCode.UpArrow)) && paramClass.isGround)
         { 
             paramClass.SpeedFluctuation(accele);
             paramClass.isRun = false;
@@ -81,13 +81,14 @@ public class PlayerMove : MonoBehaviour
         {
             paramClass.SpeedFluctuation_Jump(jumpForce);
             SetDecele(1);
+            Debug.Log("jump");
         }
         else if(!paramClass.isGround)
             paramClass.SpeedFluctuation_Jump(0);
         if(!paramClass.isJump)
             SetDecele(0);
         if (Input.GetKey(KeyCode.LeftControl) || paramClass.isSliding)
-        {            
+        {
             playerCol.height = pColHeight / 2f;
             playerCol.center = new Vector3(0, pColCenter.y-(pColHeight/2 - playerCol.height/2), 0);
             SetDecele(1);

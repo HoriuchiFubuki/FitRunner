@@ -27,7 +27,7 @@ public class SEController : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.Space))
             SoundEffecter.PlayOneShot(se);
 
         SoundEffecter.mute = mute;

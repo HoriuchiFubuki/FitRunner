@@ -247,10 +247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c35a1eb7d29567443ba96dba88b12cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vol: 0.1
+  vol: 0.25
   mute: 0
   delay: 0.1
-  se: {fileID: 8300000, guid: 7ec909d85fac3224f8e14854d2178d64, type: 3}
+  se: {fileID: 0}
 --- !u!4 &50288953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3451362735258871050, guid: 538a70721b76e4f44adc277762171746,
@@ -1913,6 +1913,15 @@ MonoBehaviour:
   image_start: {fileID: 21300000, guid: dc8d89c6d028d8c47ba5843fa0fc0419, type: 3}
   timer: {fileID: 1734654442}
   Players: {fileID: 415730029}
+  BGM: {fileID: 46993364}
+  vol: 0.15
+  mute: 0
+  delay: 0.1
+  Count_se:
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
 --- !u!114 &1576195847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12391,7 +12400,7 @@ PrefabInstance:
     - target: {fileID: 5726119028490079099, guid: e4b465061f7326b408b036a50e50bf4a,
         type: 3}
       propertyPath: nextScene
-      value: StageCreate
+      value: Result
       objectReference: {fileID: 0}
     - target: {fileID: 5726119028490079099, guid: e4b465061f7326b408b036a50e50bf4a,
         type: 3}
@@ -12408,6 +12417,16 @@ PrefabInstance:
       propertyPath: ClearLogo
       value: 
       objectReference: {fileID: 6525526}
+    - target: {fileID: 5726119028490079099, guid: e4b465061f7326b408b036a50e50bf4a,
+        type: 3}
+      propertyPath: Goal_se
+      value: 
+      objectReference: {fileID: 8300000, guid: b066ebd147e887b4bb4bca40657c87ad, type: 3}
+    - target: {fileID: 5726119028490079099, guid: e4b465061f7326b408b036a50e50bf4a,
+        type: 3}
+      propertyPath: BGM
+      value: 
+      objectReference: {fileID: 46993364}
     - target: {fileID: 6437240679947746574, guid: e4b465061f7326b408b036a50e50bf4a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17113,6 +17132,11 @@ PrefabInstance:
         type: 3}
       propertyPath: vol
       value: 0.433
+      objectReference: {fileID: 0}
+    - target: {fileID: 5808897572033839316, guid: a8bdde31468f9914a84ddc2651c98f6d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5808897572033839317, guid: a8bdde31468f9914a84ddc2651c98f6d,
         type: 3}

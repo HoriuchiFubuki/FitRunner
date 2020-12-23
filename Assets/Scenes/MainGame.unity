@@ -242,15 +242,51 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46993364}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c35a1eb7d29567443ba96dba88b12cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vol: 0.25
+  vol: 0.05
+  mute: 1
+  delay: 0.1
+  Jump_SE: {fileID: 8300000, guid: 9ec11f317ad39de4d8561bdb06194ebe, type: 3}
+  Slide_SE: {fileID: 8300000, guid: 9ec11f317ad39de4d8561bdb06194ebe, type: 3}
+  Run_SE: {fileID: 8300000, guid: a77e452f141af884f858c1f725bebc34, type: 3}
+  Dmg_SE: {fileID: 8300000, guid: d6fef5d55af32e34c93317234bf5a316, type: 3}
+--- !u!114 &46993366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46993364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d386e0317d1eae4abe6d10d73408ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vol: 0.05
   mute: 0
   delay: 0.1
-  se: {fileID: 0}
+  Goal_SE: {fileID: 8300000, guid: b066ebd147e887b4bb4bca40657c87ad, type: 3}
+  Count_se:
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
+  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
+--- !u!114 &46993370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46993364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fd2d6c412299f4093f033c15924d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &50288953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3451362735258871050, guid: 538a70721b76e4f44adc277762171746,
@@ -1914,14 +1950,6 @@ MonoBehaviour:
   timer: {fileID: 1734654442}
   Players: {fileID: 415730029}
   BGM: {fileID: 46993364}
-  vol: 0.15
-  mute: 0
-  delay: 0.1
-  Count_se:
-  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
-  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
-  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
-  - {fileID: 8300000, guid: a7702f3189d923c4bb71bcd02a60048e, type: 3}
 --- !u!114 &1576195847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12440,7 +12468,7 @@ PrefabInstance:
     - target: {fileID: 6437240679947746574, guid: e4b465061f7326b408b036a50e50bf4a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 621.2
+      value: 676
       objectReference: {fileID: 0}
     - target: {fileID: 6437240679947746574, guid: e4b465061f7326b408b036a50e50bf4a,
         type: 3}
@@ -17131,7 +17159,7 @@ PrefabInstance:
     - target: {fileID: 5808897572033839316, guid: a8bdde31468f9914a84ddc2651c98f6d,
         type: 3}
       propertyPath: vol
-      value: 0.433
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5808897572033839316, guid: a8bdde31468f9914a84ddc2651c98f6d,
         type: 3}

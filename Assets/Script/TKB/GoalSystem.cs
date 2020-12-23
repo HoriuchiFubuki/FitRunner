@@ -27,28 +27,16 @@ public class GoalSystem : MonoBehaviour
     public GameObject Time;
     public GameObject BGM;
 
-    public AudioClip Goal_se;
-
-    AudioSource SoundEffecter;
-
-
-    void Start()
-    {
-        SoundEffecter = gameObject.AddComponent<AudioSource>();
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
+        SE_OneShot SE_Con = BGM.GetComponent<SE_OneShot>();
+        SoundCtrl Sound_Con = BGM.GetComponent<SoundCtrl>();
+
         if (other.CompareTag("Player"))
         {
-
-            BGM.gameObject.SetActive(false);
-
-            SoundEffecter.PlayOneShot(Goal_se);
-
-            SoundEffecter.mute = mute;
-            SoundEffecter.volume = vol;
+            Sound_Con.SetBGM(1);
+            Sound_Con.SetActionSE(1);
+            SE_Con.Goal();
 
             //クリアしたよ表示
             ClearLogo.gameObject.SetActive(true);

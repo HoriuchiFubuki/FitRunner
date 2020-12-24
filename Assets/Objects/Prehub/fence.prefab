@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 9091556987063144083}
   - component: {fileID: 217585939646246776}
   - component: {fileID: 4838173854560407965}
-  - component: {fileID: 118217970854658557}
+  - component: {fileID: 4371311502019552682}
   m_Layer: 0
-  m_Name: Fence
+  m_Name: fence
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,8 +82,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &118217970854658557
-MeshCollider:
+--- !u!65 &4371311502019552682
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,7 +92,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: fb2d0fea6e2a7ca41bcd7e868eecd7fa, type: 2}
+  serializedVersion: 2
+  m_Size: {x: 6, y: 0.8, z: 0.1}
+  m_Center: {x: 3, y: 0.4, z: -0.05}

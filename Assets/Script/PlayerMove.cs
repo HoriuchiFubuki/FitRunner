@@ -18,7 +18,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("左右加速値")]
     private float
         accele_LR;
-    [SerializeField, Header("減速値"), Tooltip("0:通常 1:ジャンプ＆スライディング時")]
+    [SerializeField, Header("減速値"), Tooltip("0:通常 1:ジャンプ＆スライディング時 2:壁走り中")]
     private float[]
         decele;
 
@@ -35,7 +35,8 @@ public class PlayerMove : MonoBehaviour
     private Vector3
         pColCenter;
     private float
-         pColHeight;
+        pColHeight,
+        wallRunTimer;
     private IEnumerator
         regularlyUpdate;       
 
@@ -65,6 +66,12 @@ public class PlayerMove : MonoBehaviour
     }
     void Update()
     {
+        if (paramClass.isWallRun)
+        {
+            WallRunMove();
+            SetDecele(2);
+            return;
+        }
         //加速入力
         if ((paramClass.isRun || Input.GetKeyDown(KeyCode.UpArrow)) && paramClass.isGround)
         { 
@@ -113,7 +120,7 @@ public class PlayerMove : MonoBehaviour
         //左右移動
         movePos.x = paramClass.playerSpeed_LR;
 
-        //とりあえずジャンプ       
+        //とりあえずジャンプ
         movePos.y = paramClass.playerJumpforce;
 
         if (!paramClass.isGround)
@@ -142,8 +149,11 @@ public class PlayerMove : MonoBehaviour
                 break;
         }
     }
-
-    //選んだ減速値をセットする
+    /// <summary>
+    /// 選んだ減速値をセットする
+    /// 0:通常 1:ジャンプ＆スライディング時 2:壁走り中
+    /// </summary>
+    /// <param name="num"></param>
     private void SetDecele(sbyte num)
     {
         setDecele = num;
@@ -152,5 +162,15 @@ public class PlayerMove : MonoBehaviour
     private void Decelerate()
     {
         paramClass.SpeedFluctuation(decele[setDecele]);
+    }
+    private void WallRunMove()
+    {
+        wallRunTimer += 1 - (paramClass.playerSpeed / 60) / (paramClass.wallRunEndPos.z - paramClass.wallRunStartPos.z);
+        transform.position = Vector3.Lerp(paramClass.wallRunStartPos, paramClass.wallRunEndPos, wallRunTimer);
+        if (wallRunTimer >= 1)
+        {
+            paramClass.isWallRun = false;
+            SetDecele(0);
+        }
     }
 }

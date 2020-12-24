@@ -103,13 +103,13 @@ public class Anim_Con : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (!collision.collider.CompareTag("Obstacle"))
+        if (collision.collider.CompareTag("Ground"))
             paramClass.isGround = true;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (!collision.collider.CompareTag("Obstacle"))
+        if (collision.collider.CompareTag("Ground"))
             paramClass.isGround = false;
     }
 

@@ -20,6 +20,7 @@ public class PlayerParamClass
         playerJumpforce = 0;
         statusLR = LRTrigger.STAY;
         maxSpeed = 0;
+        isWallRun = false;
     }
 
     /// <summary>
@@ -47,6 +48,7 @@ public class PlayerParamClass
         playerLife
     { get; private set; }
     const sbyte MaxLife = 3;
+    
     public float
         playerSpeed
     { get; private set; }
@@ -56,19 +58,29 @@ public class PlayerParamClass
     public float
         playerJumpforce
     { get; private set; }
+    
     public Vector3
         playerPos
     { get; private set; }
+    public Vector3
+    wallRunStartPos
+    { get; private set; }
+    public Vector3
+    wallRunEndPos
+    { get; private set; }
+    
     public bool
         isRun,
         isJump,
         isGround,
-        isSliding;
+        isSliding,
+        isWallRun;
     private bool
         rightKneeUpNow, 
         leftKneeUpNow;
     public float
         maxSpeed;
+
     const float
         KneeSetUp = 76;
     /// <summary>
@@ -147,5 +159,11 @@ public class PlayerParamClass
 
         }
         triggerRL = !triggerRL;
+    }
+
+    public void SetWallRun(Vector3 startPos, Vector3 endPos)
+    {
+        wallRunStartPos = startPos;
+        wallRunEndPos = endPos;
     }
 }

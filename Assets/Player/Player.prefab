@@ -174,9 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412dd75f05ad59248aa96c13d864277d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ContinuePos: {x: 0, y: 0, z: 0}
-  AutoRun: 0
-  AutoRunSpeed: 40
+  ContinuePos: {x: 0, y: 1, z: 0}
+  AutoRun: 1
+  AutoRunSpeed: 25
 --- !u!114 &7939041008411524444
 MonoBehaviour:
   m_ObjectHideFlags: 0

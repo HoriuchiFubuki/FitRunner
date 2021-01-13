@@ -9,6 +9,7 @@ TagManager:
   - FootLeft
   - ContinuePoint
   - Ground
+  - DashPanel
   layers:
   - Default
   - TransparentFX

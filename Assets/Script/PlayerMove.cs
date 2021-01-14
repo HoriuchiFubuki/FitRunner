@@ -176,12 +176,13 @@ public class PlayerMove : MonoBehaviour
     }
     private void WallRunMove()
     {
-        wallRunTimer += (paramClass.playerSpeed / 60.0f) / (paramClass.wallRunEndPos.z - paramClass.wallRunStartPos.z);
+        wallRunTimer += (paramClass.playerSpeed / 120.0f) / (paramClass.wallRunEndPos.z - paramClass.wallRunStartPos.z);
         transform.position = Vector3.Lerp(paramClass.wallRunStartPos, paramClass.wallRunEndPos, wallRunTimer);
         if (wallRunTimer >= 1)
         {
             paramClass.isWallRun = false;
             SetDecele(0);
+            wallRunTimer = 0;
         }
     }
 }

@@ -43,6 +43,7 @@ public class PlayerMove : MonoBehaviour
     private enum MyFunction
     {
         DECELERATE,
+        CORRECTION_LR,
         MAXVAL
     }
 
@@ -145,6 +146,12 @@ public class PlayerMove : MonoBehaviour
                     Decelerate();
                     yield return new WaitForSeconds(.1f);
                 }
+            case MyFunction.CORRECTION_LR:
+                for(;;)
+                {
+                    Correction_LR();
+                    yield return new WaitForSeconds(.1f);
+                }
             default:
                 break;
         }
@@ -163,9 +170,13 @@ public class PlayerMove : MonoBehaviour
     {
         paramClass.SpeedFluctuation(decele[setDecele]);
     }
+    private void Correction_LR()
+    {
+
+    }
     private void WallRunMove()
     {
-        wallRunTimer += 1 - (paramClass.playerSpeed / 60) / (paramClass.wallRunEndPos.z - paramClass.wallRunStartPos.z);
+        wallRunTimer += (paramClass.playerSpeed / 60.0f) / (paramClass.wallRunEndPos.z - paramClass.wallRunStartPos.z);
         transform.position = Vector3.Lerp(paramClass.wallRunStartPos, paramClass.wallRunEndPos, wallRunTimer);
         if (wallRunTimer >= 1)
         {

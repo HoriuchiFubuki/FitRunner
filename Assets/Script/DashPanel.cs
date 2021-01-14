@@ -11,29 +11,11 @@ public class DashPanel : MonoBehaviour
     public float
         PanelSpeed = 1.0f;
 
-    private bool OnPanel = false;
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerStay(Collider other)
     {
-        if (OnPanel)
+        if (other.tag == "Player")
+        {
             paramClass.SpeedFluctuation(PanelSpeed);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "DashPanel")
-        {
-            OnPanel = true;
-            Debug.Log("aaaa");
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "DashPanel")
-        {
-            OnPanel = false;
-        }
-    }
-
 }

@@ -876,11 +876,6 @@ PrefabInstance:
       propertyPath: ContinuePos.z
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 5876650583209934298, guid: 777fd1ab645fd0349987f7a6af18efe9,
-        type: 3}
-      propertyPath: areaHight
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 5998431186052848888, guid: 777fd1ab645fd0349987f7a6af18efe9,
         type: 3}
       propertyPath: decele.Array.size

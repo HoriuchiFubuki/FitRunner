@@ -15,6 +15,13 @@ public class SpeedUI_Con : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+    public Color Max_Color;
+    public Color Middle_Color;
+    public Color Little_Color;
+
+    [SerializeField]
+    private float[] Speed_Color;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +50,17 @@ public class SpeedUI_Con : MonoBehaviour
     void SpeedUIcontroller(float speed)
     {
         speedUI_fill.fillAmount = speed / maxSpeed;
-        if(speedUI_fill.fillAmount >= 1)
+        if(speedUI_fill.fillAmount >= Speed_Color[0])
         {
-            speedUI_fill.color = new Color(1, 1, 1, 0.9f);
+            speedUI_fill.color = Max_Color;
+        }
+        else if(speedUI_fill.fillAmount >= Speed_Color[1] && speedUI_fill.fillAmount < Speed_Color[0])
+        {
+            speedUI_fill.color = Middle_Color;
         }
         else
         {
-            speedUI_fill.color = new Color(0.8f, 0.8f, 0.8f, 0.9f);
+            speedUI_fill.color = Little_Color;
         }
     }
 }

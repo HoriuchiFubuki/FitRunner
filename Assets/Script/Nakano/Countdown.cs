@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Countdown : MonoBehaviour
 {
-
+    public Sprite image_3;
     public Sprite image_2;
     public Sprite image_1;
     public Sprite image_start;
@@ -16,18 +16,28 @@ public class Countdown : MonoBehaviour
 
     private float count;
 
+    private FadeEffect fade;
+    [SerializeField]
+    Image fadeImg;
 
     // Start is called before the first frame update
     void Start()
     {
         count = 0;
         
+        fade = gameObject.AddComponent<FadeEffect>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        count += Time.deltaTime;
+        if (fadeImg.color.a > 0f)
+            fadeImg.color = new Color(fadeImg.color.r, 
+                                    fadeImg.color.g,
+                                    fadeImg.color.b,
+                                    fade.FadeIN(true));
+        else count += Time.deltaTime;
+
         var img = GetComponent<Image>();
         SE_OneShot SE_Con = BGM.GetComponent<SE_OneShot>();
         SoundCtrl Sound_Con = BGM.GetComponent<SoundCtrl>();
@@ -35,6 +45,7 @@ public class Countdown : MonoBehaviour
         switch (count)
         {
             case float n when n >= 0.03 && n < 1:
+                img.color = new Color(255, 255, 255, 255);
                 SE_Con.Count_SE(0);
                 break;
 

@@ -98,7 +98,23 @@ public class Anim_Con : MonoBehaviour
             Anm.SetBool("Right", false);
             Anm.SetBool("Left", false);
         }
-            
+
+        ///プレイヤーが壁走りポイントに入ると壁走りアニメーションを再生 
+        if (paramClass.isWallRun)
+        {
+            Anm.SetBool("",true);
+        }
+        else
+        {
+            Anm.SetBool("",false);
+        }
+
+
+        ///プレイヤーがゴール地点を通過したら完走アニメーションを再生
+     //   if ()
+        {
+            ;
+        }
     }
 
     private void OnCollisionStay(Collision collision)

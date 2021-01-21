@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d91a8854a50642409b7be2b3fb539f4
+guid: 5716143999766d24a88270742c87bdfe
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
@@ -22,8 +22,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: BuildingC
+      name: BuildingC.001
     second: {fileID: 2100000, guid: 6a4414a9494450442adae46dc4c7ce38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BuildingE.001
+    second: {fileID: 2100000, guid: 364d0ca652b63f14dbe082dc510b0321, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -44,6 +49,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Mob building
     second: {fileID: 2100000, guid: d442cc9d750ee674ba2e35298bdcae53, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pole2
+    second: {fileID: 2100000, guid: f1c51cb1aeae59b428b4be800abb70ab, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

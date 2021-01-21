@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,18 +47,23 @@ public class Title : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (hight_CharaAnime <= paramClass.playerPos.y * 20 ||
-                Input.GetKeyDown(KeyCode.Space) && isGround)
+        if ((hight_CharaAnime <= paramClass.playerPos.y * 20 ||
+                Input.GetKeyDown(KeyCode.Space)) && isGround)
         {
+            Anime.SetBool("Run", true);
+            paramClass.SpeedFluctuation(11);
+
             Anime.SetBool("Jump", true);
+            paramClass.SpeedFluctuation(1);
             isJump = true;
+
             //Invoke("Ca", 1.5f);
             Invoke("Scene", 1.5f);          
         }
         else if (isGround || isJump)
         {
-            Anime.SetBool("Jump", false);
-            isJump = false;
+            //Anime.SetBool("Jump", false);
+            //isJump = false;
         }
         img.color = new Color(img.color.r,
                               img.color.g,

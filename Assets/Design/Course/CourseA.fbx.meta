@@ -37,6 +37,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Fence
+    second: {fileID: 2100000, guid: 537f1ea166122d54db468d9b493b1e8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Guardrail
     second: {fileID: 2100000, guid: f1c51cb1aeae59b428b4be800abb70ab, type: 2}
   - first:

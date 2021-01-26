@@ -5,6 +5,9 @@ using UnityEngine.Assertions.Must;
 
 public class HitChecker : MonoBehaviour
 {
+    PlayerParamClass
+        paramClass = PlayerParamClass.GetInstance();
+
     [SerializeField]
     GameObject dmgEfPrefub;
     [SerializeField]
@@ -68,6 +71,22 @@ public class HitChecker : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         if(collision.collider.CompareTag("Obstacle"))
+        {
             collision.collider.isTrigger = true;
+            ObjectKick(collision);
+        }
+    }
+    private void ObjectKick(Collision hitObj)
+    {
+        if (hitObj.rigidbody == null)
+            return;
+        Rigidbody hitRB = hitObj.rigidbody;
+        Vector3 kickVec;
+
+        kickVec = hitObj.transform.position - this.transform.position;
+        kickVec.x += Random.Range(-10.0f, 10.0f);
+        kickVec.y += Random.Range(0.0f, 50.0f);
+        kickVec = kickVec.normalized;
+        hitRB.AddForce(kickVec * paramClass.playerSpeed, ForceMode.VelocityChange);
     }
 }

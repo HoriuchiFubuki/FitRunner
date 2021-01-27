@@ -16,11 +16,17 @@ public class HitChecker : MonoBehaviour
     [SerializeField]
     GameObject childObj;
 
+    [SerializeField, Header("蹴り上げるY軸のブレ最大値")]
+    float kickmaxValY = 30.0f;
+    [SerializeField, Header("蹴り上げるX軸のブレ最大値")]
+    float kickmaxValX = 5.0f;
+
     Renderer renderer;
     private bool hitState;
     public float blinkInterval;
     public float allBlinkTime;
 
+    private const float desTime = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -84,9 +90,13 @@ public class HitChecker : MonoBehaviour
         Vector3 kickVec;
 
         kickVec = hitObj.transform.position - this.transform.position;
-        kickVec.x += Random.Range(-10.0f, 10.0f);
-        kickVec.y += Random.Range(0.0f, 50.0f);
+        kickVec.x += Random.Range(-kickmaxValX, kickmaxValX);
+        kickVec.y += Random.Range(0.0f, kickmaxValY);
         kickVec = kickVec.normalized;
         hitRB.AddForce(kickVec * paramClass.playerSpeed, ForceMode.VelocityChange);
+
+        hitRB.AddTorque(Vector3.forward * paramClass.playerSpeed, ForceMode.VelocityChange);
+
+        Destroy(hitObj.gameObject, desTime);
     }
 }

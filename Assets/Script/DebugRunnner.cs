@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DebugRunnner : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class DebugRunnner : MonoBehaviour
             paramClass.isRun = true;
         if (Input.GetKey(KeyCode.C))
             Continue();
+        if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.LeftControl))
+            LoadReset();
     }
 
     private void Continue()
@@ -39,6 +42,11 @@ public class DebugRunnner : MonoBehaviour
         pos.y = ContinuePos.y;
         pos.z = ContinuePos.z;
         myTransform.position = pos;
+    }
+
+    private void LoadReset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnTriggerEnter(Collider other)

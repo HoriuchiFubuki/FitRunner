@@ -17,7 +17,7 @@ public class FadeEffect : MonoBehaviour
     {
         fadeINA = 255f;
         fadeOUTA = 0f;
-        fadeSpeed = 1.05f;
+        fadeSpeed = 5.05f;
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class FadeEffect : MonoBehaviour
         if (on && fadeOUTA <= 1f)
         {
             fadeOUTA += 0.001f;
-            fadeOUTA *= fadeSpeed;
+            fadeOUTA *= (fadeSpeed * Time.deltaTime) + 1;
         }
         return fadeOUTA;
     }
@@ -41,7 +41,7 @@ public class FadeEffect : MonoBehaviour
         if (on && fadeINA >= 0f)
         {
             fadeINA -= 0.001f;
-            fadeINA /= fadeSpeed;
+            fadeINA /= (fadeSpeed * Time.deltaTime) + 1;
         }
         return fadeINA;
     }

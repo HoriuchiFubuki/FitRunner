@@ -33,7 +33,7 @@ public class Loader : MonoBehaviour
         if (slider.value == 1f)
         {
             //if (Input.GetMouseButton(0))
-                async.allowSceneActivation = true;
+            Invoke("SceneLoader", 1.4f); 
         }
     }
 
@@ -49,5 +49,10 @@ public class Loader : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    void SceneLoader()
+    {
+        async.allowSceneActivation = true;
     }
 }
